@@ -46,7 +46,7 @@
     osm_base::osm_planet_waterways_large
     osm_base::osm_planet_waterways_small
   ]
-  defaultDate: 2020-10-01
+  defaultDate: 2020-12-15
   mbtilesDir: /data/mbtiles/osm_tile
   propertyBlacklist: [
     description
