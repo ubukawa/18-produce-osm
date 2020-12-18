@@ -144,6 +144,15 @@ const lut = {
       minzoom: minzoomWater(f),
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['destination']
+    delete f.properties['area_km2']
+    delete f.properties['length_km']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
+    delete f.properties['ne_scalerank']
+    delete f.properties['ne_name']
+    delete f.properties['ne_mission']
     return f
   },
   osm_planet_waterways_small: f => {
@@ -152,6 +161,10 @@ const lut = {
       minzoom: 7,
       maxzoom: 10
     }
+    delete f.properties['class']
+    delete f.properties['destination']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   osm_planet_waterways_large: f => {
@@ -160,6 +173,10 @@ const lut = {
       minzoom: 11,
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['destination']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
 
@@ -170,6 +187,9 @@ const lut = {
       minzoom: minzoomRoad(f),
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   osm_planet_minor_roads: f => {
@@ -178,6 +198,9 @@ const lut = {
       minzoom: minzoomRoad(f),
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   // 5. railway
@@ -187,6 +210,10 @@ const lut = {
       minzoom: 9,
       maxzoom: 15
     }
+    delete f.properties['traction']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_ctry_name']
+    delete f.properties['ungsc_mission']
     return f
   },
   // 6. route
@@ -196,6 +223,9 @@ const lut = {
       minzoom: 6,
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   // 7. structure
@@ -205,6 +235,9 @@ const lut = {
       minzoom: 11,
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   osm_planet_highway_areas: f => {
@@ -213,6 +246,9 @@ const lut = {
       minzoom: flap(f, 10),
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   osm_planet_transport_areas: f => {
@@ -221,6 +257,9 @@ const lut = {
       minzoom: flap(f, 10),
       maxzoom: 15
     }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   // 8. building
@@ -230,8 +269,9 @@ const lut = {
       minzoom: 10,
       maxzoom: 15
     }
-    f.properties.landuse = f.properties.fclass
-    delete f.properties['fclass']
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
     return f
   },
   osm_planet_buildings: f => {
@@ -286,6 +326,7 @@ const lut = {
     minzoom: 13,
     maxzoom: 15
     }
+    delete f.properties['class']
   return f
   },
   osm_planet_pois_other: f => {
@@ -298,6 +339,7 @@ const lut = {
     maxzoom: 15
     }
   return f
+    delete f.properties['class']
   },
   osm_planet_pois_public: f => {
     f.tippecanoe = {
@@ -305,6 +347,7 @@ const lut = {
     minzoom: 11,
     maxzoom: 15
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_pois_services: f => {
@@ -313,6 +356,7 @@ const lut = {
     minzoom: 13,
     maxzoom: 15
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_pois_traffic: f => {
@@ -321,6 +365,7 @@ const lut = {
     minzoom: 13,
     maxzoom: 15
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_pois_transport: f => {
@@ -335,6 +380,7 @@ const lut = {
       default:
         f.tippecanoe.minzoom = 9
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_pois_water: f => {
@@ -343,6 +389,7 @@ const lut = {
     minzoom: 15,
     maxzoom: 15
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_pois_worship: f => {
@@ -351,6 +398,7 @@ const lut = {
     minzoom: 13,
     maxzoom: 15
     }
+  delete f.properties['class']
   return f
   },
   osm_planet_worship_area_p: f => {
@@ -359,6 +407,7 @@ const lut = {
       minzoom: 13,
       maxzoom: 15
     }
+   delete f.properties['class']
     return f
  },
   osm_planet_barrier_lines: f => {
@@ -367,6 +416,7 @@ const lut = {
       minzoom: 15,
       maxzoom: 15
     }
+    delete f.properties['class']
     return f
  },
   osm_planet_heritage_area_p: f => {
@@ -375,6 +425,7 @@ const lut = {
       minzoom: 13,
       maxzoom: 15
     }
+    delete f.properties['class']
     return f 
 },
   osm_planet_landuse_park_reserve: f => {
@@ -383,6 +434,7 @@ const lut = {
       minzoom: 7,
       maxzoom: 15
     }
+    delete f.properties['class']
     return f 
 },
   osm_planet_landuse_points: f => {
