@@ -24,8 +24,10 @@ const dbUser = config.get('dbUser')
 const dbPassword = config.get('dbPassword')
 const relations = config.get('relations')
 const defaultDate = new Date(config.get('defaultDate'))
-const mbtilesDir = config.get('mbtilesDir')
+//const mbtilesDir = config.get('mbtilesDir')
+const mbtilesDirR = config.get('mbtilesDirR')
 const propertyBlacklist = config.get('propertyBlacklist')
+const priorityTilelist = config.get('priorityTilelist')
 const spinnerString = config.get('spinnerString')
 const fetchSize = config.get('fetchSize')
 
@@ -36,7 +38,7 @@ winston.configure({
   format: winston.format.simple(),
   transports: [ 
     new DailyRotateFile({
-      filename: '15-produce-osm-%DATE%.log',
+      filename: '18-produce-osm-%DATE%.log',
       datePattern: 'YYYY-MM-DD',
       maxSize: '20m',
       maxFiles: '14d'
@@ -53,7 +55,7 @@ let pools = {}
 let productionSpinner = new Spinner()
 let moduleKeysInProgress = []
 
-//// start the monitor //(note: edited here)
+//// start the monitor //(note: as unixUser account of the PostGIS server is not provided, this part is ommitted.)
 //sar = spawn('ssh', [
 //  '-l', unixUser,
 //  host, `sar -b ${monitorPeriod}`
@@ -68,7 +70,7 @@ const isIdle = () => {
   return idle
 }
 
-////This checkExpiretiles needs to be confirmed
+////This checkExpiretiles (note: as unixUser account of the PostGIS server is not provided, this part is ommitted.)
 //const checkExpiretiles = (date) => {
 //  return new Promise((resolve, reject) => {
 //    const dateKey = date.toISOString().split('T')[0].replace(/-/g, '')
@@ -98,7 +100,7 @@ const getScores = async () => {
     for (let x = 0; x < 2 ** Z; x++) {
       for (let y = 0; y < 2 ** Z; y++) {
         const moduleKey = `${Z}-${x}-${y}`
-        const path = `${mbtilesDir}/${moduleKey}.mbtiles`
+        const path = `${mbtilesDirR}/${moduleKey}.mbtiles`
         let mtime = defaultDate
         let size = 0
         if (fs.existsSync(path)) {
@@ -243,8 +245,8 @@ const queue = new Queue(async (t, cb) => {
   const queueStats = queue.getStats()
   const [z, x, y] = moduleKey.split('-').map(v => Number(v))
   const bbox = tilebelt.tileToBBOX([x, y, z])
-  const tmpPath = `${mbtilesDir}/part-${moduleKey}.mbtiles`
-  const dstPath = `${mbtilesDir}/${moduleKey}.mbtiles`
+  const tmpPath = `${mbtilesDirR}/part-${moduleKey}.mbtiles`
+  const dstPath = `${mbtilesDirR}/${moduleKey}.mbtiles`
 
 /// TEMP
 //if (fs.existsSync(dstPath)) return cb()
@@ -303,6 +305,7 @@ const queue = new Queue(async (t, cb) => {
 
 const queueTasks = () => {
   let moduleKeys = Object.keys(modules)
+  moduleKeys = moduleKeys.filter(v => !priorityTilelist.includes(v))
   moduleKeys.sort((a, b) => modules[b].score - modules[a].score)
   for (let moduleKey of moduleKeys) {
 //  for (let moduleKey of ['6-34-30','6-34-31','6-34-32','6-35-30','6-35-31','6-35-32','6-36-30','6-36-31','6-36-32','6-37-30','6-37-31','6-37-32','6-38-30','6-38-31','6-38-32']) { //// TEMP
@@ -322,7 +325,7 @@ const shutdown = () => {
 }
 
 const main = async () => {
-  winston.info(`${iso()}: prototype15 production started.`)
+  winston.info(`${iso()}: prototype18 other tiles production started.`)
   await getScores()
   queueTasks()
   queue.on('drain', () => {
