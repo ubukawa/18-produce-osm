@@ -17,9 +17,17 @@ cat config/example.hjson
 vi config/default.hjson
 ```
 
-## run
+## run (whole)
 ```console
 node index.js
 ```  
 
+## run (priority tiles)
+```console
+node index_priority.js
+```  
 
+## run (other tiles)
+```console
+node index_rest.js
+```  
