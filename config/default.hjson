@@ -92,6 +92,9 @@
     6-39-33
     6-39-34
   ]
+  priorityTilelist2: [
+    6-34-30
+  ]
   spinnerString: 18
   fetchSize: 300
 }
