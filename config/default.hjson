@@ -172,4 +172,5 @@
   ]
   spinnerString: 18
   fetchSize: 300
+  tippecanoePath: /usr/local/bin/tippecanoe
 }

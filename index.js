@@ -28,6 +28,8 @@ const mbtilesDir = config.get('mbtilesDir')
 const propertyBlacklist = config.get('propertyBlacklist')
 const spinnerString = config.get('spinnerString')
 const fetchSize = config.get('fetchSize')
+const tippecanoePath = config.get('tippecanoePath')
+
 
 // global configurations
 Spinner.setDefaultSpinnerString(spinnerString)
@@ -253,7 +255,7 @@ const queue = new Queue(async (t, cb) => {
   moduleKeysInProgress.push(moduleKey)
   productionSpinner.setSpinnerTitle(moduleKeysInProgress.join(', '))
 
-  const tippecanoe = spawn('tippecanoe', [
+  const tippecanoe = spawn(tippecanoePath, [
     '--quiet',
     '--no-feature-limit',
     '--no-tile-size-limit',
